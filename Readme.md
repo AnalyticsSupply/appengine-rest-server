@@ -3,6 +3,8 @@
 Drop-in server for [Google App Engine](http://code.google.com/appengine/) applications which exposes your data model via a REST
 API with no extra work.
 
+[See Examples](example.md)
+
 ## Basic Features ##
   * Metadata browsing
     * List models: `GET "/metadata"`
