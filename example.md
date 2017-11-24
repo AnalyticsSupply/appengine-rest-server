@@ -1,25 +1,23 @@
-Copyright 2008 Boomi, Inc.
-All rights reserved.
-
-
-Metadata browsing:
+## Metadata browsing:
 ==================
 
 * GET http://localhost:8080/rest/metadata
 ** (gets all known types)
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <types>
         <type>WholeEnchilada</type>
         <type>DynoGreeting</type>
         <type>Greeting</type>
 </types>
-
+```
 * GET http://localhost:8080/rest/metadata/Greeting
 ** (gets the Greeting type profile)
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="Greeting">
@@ -33,11 +31,12 @@ Metadata browsing:
         </xs:complexType>
     </xs:element>
 </xs:schema>
-
+```
 * GET http://localhost:8080/rest/metadata/DynoGreeting
 ** (gets the DynoGreeting type profile)
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -54,11 +53,12 @@ Metadata browsing:
         </xs:complexType>
     </xs:element>
 </xs:schema>
-
+```
 * GET http://localhost:8080/rest/metadata/DynoGreeting
 ** (gets the WholeEnchilada type profile)
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="WholeEnchilada">
@@ -95,8 +95,8 @@ Metadata browsing:
         </xs:complexType>
     </xs:element>
 </xs:schema>
-
-Object Retrieval:
+```
+## Object Retrieval:
 =================
 
 * GET http://localhost:8080/rest/DynoGreeting
@@ -120,6 +120,7 @@ Object Retrieval:
    Multiple operators may be provided, they are AND'ed together).
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <list offset="50">
         <DynoGreeting>
@@ -144,11 +145,12 @@ Object Retrieval:
                 <extra type="StringProperty">some other stuff</extra>
         </DynoGreeting>
 </list>
-
+```
 * GET http://localhost:8080/rest/WholeEnchilada/aglndWVzdGJvb2tyFAsSDldob2xlRW5jaGlsYWRhGAkM
 ** (gets a single WholeEnchilada instance)
 
 - Result:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <WholeEnchilada>
         <key>aglndWVzdGJvb2tyFAsSDldob2xlRW5jaGlsYWRhGAkM</key>
@@ -180,14 +182,15 @@ Object Retrieval:
         <some_im>sip bob</some_im>
         <some_user>bobster</some_user>
 </WholeEnchilada>
-
-Object Creation/Modification:
+```
+## Object Creation/Modification:
 =================
 
 * POST http://localhost:8080/rest/Greeting
 ** (create new Greeting instance)
 
 Request:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <Greeting>
     <author>bob@example.com</author>
@@ -195,13 +198,15 @@ Request:
     <date>2008-08-05T00:21:19.080553</date>
     <taglist>foo,bar,bazz</taglist>
 </Greeting>
-
+```
 - Result (default):
+```
 aglndWVzdGJvb2tyEgsSDER5bm9HcmVldGluZxgEDA
-
+```
 - Result (with "?type=structured" in url):
+```
 <?xml version="1.0" encoding="utf-8"?><key>aglndWVzdGJvb2tyEgsSDER5bm9HcmVldGluZxgEDA</key>
-
+```
 - Result (with "?type=full" in url):
 Complete current version of the new Greeting instance.
 
@@ -209,14 +214,16 @@ Complete current version of the new Greeting instance.
 ** (partial update of existing Greeting instance)
 
 Request:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <Greeting>
     <content>some new content</content>
 </Greeting>
-
+```
 - Result (default):
+```
 aglndWVzdGJvb2tyEgsSDER5bm9HcmVldGluZxgEDA
-
+```
 - Result (with "?type=full" in url):
 Complete current version of the updated Greeting instance.
 
@@ -224,16 +231,18 @@ Complete current version of the updated Greeting instance.
 ** (complete replacement of existing Greeting instance)
 
 Request:
+```
 <?xml version="1.0" encoding="utf-8"?>
 <Greeting>
     <author>mike@example.com</author>
     <content>some completely new content</content>
     <date>2008-08-11T10:21:19.080553</date>
 </Greeting>
-
+```
 - Result (default):
+```
 aglndWVzdGJvb2tyEgsSDER5bm9HcmVldGluZxgEDA
-
+```
 - Result (with "?type=full" in url):
 Complete current version of the updated Greeting instance.
 
